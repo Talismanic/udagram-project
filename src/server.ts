@@ -42,12 +42,13 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   app.get( "/filteredimage", async ( req, res ) => {
     const imageUrl = req.query.image_url;
 
+// error with 400
     if (imageUrl == null || typeof imageUrl == undefined){
       res.status(422).send({reason:"Image URL is a mandatory parameter"});
     }
 
     const imageFile = await filterImageFromURL(imageUrl);
-
+// returning 200
     res.status(200).sendFile(imageFile, (err: Error)=>{
       if (err){
         res.status(500).send({reason:"something went wrong"});
